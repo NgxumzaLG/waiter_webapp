@@ -6,31 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fifi's Coffee Shop</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
 
-    <style>
-        body {
-            background-color: #b2b09bff;
-            color: #050401ff;
-        }
-
-        .myBtn:hover {
-            background-color: transparent;
-            color: #050401ff;
-        }
-    </style>
 </head>
 <body>
 
     <div class="container-lg">
-        {{!-- <header>
-            <div class="row" style="border-bottom: 3px solid #04724dff;">
-                <div class="col-sm-12 m-1" style="padding-top: 7.5px;"> 
-                    <h4>FIFI's Coffee Shop</h4>
-
-                </div>
-            </div>
-        </header> --}}
-        <section>
+        {{!-- <section>
             <div class="row">
                 <div class="col-sm my-3 mx-5">
                     <h4>Waiter: Lusanda</h4>
@@ -72,6 +54,38 @@
                 <div class="col-sm bg-light p-3">
                     Saturday
                     <input class="m-2" type="checkbox">
+                </div>
+            </div>
+        </section> --}}
+
+        <section>
+            <div class="row">
+                <div class="col-sm-3  mx-3 my-4 card bg-dark">
+                    <div class="card-header text-white">
+                        <h5>Waiter</h5>
+                    </div>
+                    <div class="card-body text-white waiter-text">
+                        <div class="waiter-img">
+                            <img class="img-fluid" src="/images/waiter.png" alt="waiter">
+                        
+                        </div>
+                        <h4>Lusanda</h4>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-8 my-4 card">
+                    <div class="card-header">
+                        <h5>Waiter availability</h5>
+                    </div>
+                    <div class="card-body">
+                        {{#each days}}
+                            <div class="{{this}}">
+                                <input class="m-2" type="checkbox" name="checkDays" value="{{this}}"><span class="m-2 dayText"><strong>{{this}}</strong></span>
+                            </div>
+        
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </section>

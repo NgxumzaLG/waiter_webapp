@@ -1,0 +1,67 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
+
+* {
+    font-family: 'Lato', Helvetica, sans-serif;
+}
+
+body {
+    color: #050401ff;
+    background-image: url("/images/5310800.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.myBtn:hover {
+    background-color: transparent;
+    border: 1px solid #a52422ff;
+    color: #a52422ff;
+}
+
+.myBtn {
+    background-color: #a52422ff;
+    color: white;
+}
+
+/* .theBtn{
+    text-align: center;
+} */
+
+.header, .card-header {
+    border-bottom: 2px solid #a52422ff;
+}
+
+.logo img {
+    width: 45px;
+    height: auto;
+}
+
+.logo {
+    padding: 0 0 0 10px;
+    display: flex;
+}
+
+.logo h5 {
+    margin: 0;
+    padding: 10px 0 ;
+}
+
+.coffee-shop, .theCard, .input-group input {
+    border: 1px solid #a52422ff;
+}
+
+.waiter-text {
+    text-align: center;
+}
+
+.waiter-text h4 {
+    margin: 7.5px;
+}
+
+.dayText {
+    font-size: 17px;
+}
+
+
+

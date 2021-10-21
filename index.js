@@ -21,13 +21,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get("/", function(req, res){
-    res.render('index');
+app.get('/', function(req, res){
+	res.render('index');
 });
 
-app.get('/waiter', function(req, res) {
-    res.render('waiters');
-})
+app.post('/waiter', function(req, res) {
+	let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	res.render('waiters', { days});
+});
 
 let PORT = process.env.PORT || 3010;
 
