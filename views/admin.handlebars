@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fifi's Coffee Shop</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+
+    <div class="container-lg">
+        <section>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 my-4 mx-2 card">
+                    <div class="card-header mb-3">  
+                        <h5>Waiters schedule!</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sunday</th>
+                                    <th scope="col">Monday</th>
+                                    <th scope="col">Tuesday</th>
+                                    <th scope="col">Wednesday</th>
+                                    <th scope="col">Thurday</th>
+                                    <th scope="col">Friday</th>
+                                    <th scope="col">Saturday</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{#each Sunday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Monday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Tuesday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Wednesday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Thursday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Friday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Saturday}}
+                                        {{this}} <br> 
+                                        {{/each}}
+                                    </td>
+                                </tr>
+                                {{!-- {{#each orderList}}
+                                    <tr>
+                                        <td>#<span>{{orderId}}</span></td>
+                                        <td>{{status}}</td>
+                                        <td>{{items}}</td>
+                                        <td>R<span>{{amount}}</span></td>
+                                    </tr>
+
+                                {{/each}} --}}
+                            </tbody>
+                        </table>
+
+                        {{!-- <div class="saveBtn">
+                            <button class="btn myBtn" type="submit" name="button">Save</button>
+                        </div>
+                        <div class="homeBtn">
+                            <button class="btn myBtn" type="submit" name="button">Home</button>
+                        </div> --}}
+
+                        <div class="adminBtn my-3 mx-1">
+                            {{!-- <form action="/" method="GET">
+                                <button class="btn myBtn m-1" type="submit" name="button">Home</button> --}}
+                                <a class="btn myBtn m-1" href="/">Home</a>
+                            {{!-- </form> --}}
+
+                            <form action="/reset" method="GET">
+                                <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
+                            </form>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

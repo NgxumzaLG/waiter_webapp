@@ -13,6 +13,10 @@ body {
     min-height: 100vh;
 }
 
+.flex {
+    display: flex;
+}
+
 .myBtn:hover {
     background-color: transparent;
     border: 1px solid #a52422ff;
@@ -24,9 +28,10 @@ body {
     color: white;
 }
 
-/* .theBtn{
+.adminBtn{
     text-align: center;
-} */
+    display: flex;
+}
 
 .header, .card-header {
     border-bottom: 2px solid #a52422ff;
@@ -47,7 +52,7 @@ body {
     padding: 10px 0 ;
 }
 
-.coffee-shop, .theCard, .input-group input {
+.coffee-shop, .card, .input-group input {
     border: 1px solid #a52422ff;
 }
 
@@ -63,5 +68,14 @@ body {
     font-size: 17px;
 }
 
+.theDays {
+    width: 55%;
+}
 
+.update-btn {
+    flex-direction: column;
+}
 
+.saveBtn {
+    margin: 50% 0 30% 0;
+}
