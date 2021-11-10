@@ -24,16 +24,15 @@ module.exports = function(data) {
 	}
 
 	async function selectShifts(selectedDays) {
-		// day = string;
-		// const arrayId = [];
-		let theDayId;
 		const theWaiterId = await getWaiterId();
-	
-		for (const i of selectedDays) {
-			const dayId = await pool.query('SELECT id FROM week_days WHERE days = $1', [i]);
-			theDayId = dayId.rows[0].id;
-			// arrayId.push(strId);
-			await pool.query('INSERT INTO waiter_shifts (waiter_id, day_id) VALUES ($1,$2)', [theWaiterId, theDayId]);
+		const checkWaiter = await pool.query('SELECT waiter_id, day_id FROM waiter_shifts WHERE waiter_id = $1', [theWaiterId]);
+
+		if (checkWaiter.rowCount == 0) {
+			await addShifts(selectedDays, theWaiterId);
+
+		} else {
+			await pool.query('DELETE FROM waiter_shifts WHERE waiter_id = $1', [theWaiterId]);
+			await addShifts(selectedDays, theWaiterId);
 		}
 	}
 
@@ -51,10 +50,35 @@ module.exports = function(data) {
 
 	async function waitersTable() {
 		const table = await pool.query('SELECT name FROM waiter_names');
+		
 		return table.rows;
+	}
 
-		// const updateTable = await pool.query('SELECT * FROM waiter_shifts');
-		// return updateTable.rows;
+	async function addShifts(myDays, myId) {
+		let theDayId;
+		let dayId;
+		
+		if (typeof myDays === 'string' ) {
+			dayId = await pool.query('SELECT id FROM week_days WHERE days = $1', [myDays]);
+			theDayId = dayId.rows[0].id;
+	
+			await pool.query('INSERT INTO waiter_shifts (waiter_id, day_id) VALUES ($1,$2)', [myId, theDayId]);
+
+		} else {
+			for (const i of myDays) {
+				dayId = await pool.query('SELECT id FROM week_days WHERE days = $1', [i]);
+				theDayId = dayId.rows[0].id;
+	
+				await pool.query('INSERT INTO waiter_shifts (waiter_id, day_id) VALUES ($1,$2)', [myId, theDayId]);
+			}
+		}
+	}
+
+	async function waiterDays() {
+		const theWaiterId = await getWaiterId();
+		const checkWaiter = await pool.query('SELECT waiter_id, day_id FROM waiter_shifts WHERE waiter_id = $1', [theWaiterId]);
+
+		return checkWaiter.rows;
 	}
 
 	return {
@@ -64,6 +88,8 @@ module.exports = function(data) {
 		selectShifts,
 		joinTables,
 		resetData,
-		waitersTable
+		waitersTable,
+		addShifts,
+		waiterDays
 	};
 };

@@ -65,8 +65,6 @@ app.get('/waiters/:username', function(req, res) {
 
 app.post('/shifts', async function (req, res) {
 	let strWaiter = instWaiter.getWaiter();
-	// console.log(req.body.checkDays);
-	await instWaiter.getWaiterId();
 	await instWaiter.selectShifts(req.body.checkDays);
 	res.redirect(`waiters/${strWaiter}`);
 });
