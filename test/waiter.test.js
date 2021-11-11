@@ -30,7 +30,7 @@ describe('Waiters availibility webapp' , function(){
 		let instWaiters = waiterFactory(pool);
 
 		await instWaiters.setWaiter('lusanda');
-		await instWaiters.setWaiter('lusNDa');
+		await instWaiters.setWaiter('lusaNDa');
 
 		assert.deepEqual([{name: 'Lusanda'}], await instWaiters.waitersTable());
 	});
