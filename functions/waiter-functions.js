@@ -17,6 +17,12 @@ module.exports = function(data) {
 
 	}
 
+	async function waitersTable() {
+		const table = await pool.query('SELECT name FROM waiter_names');
+
+		return table.rows;
+	}
+
 	async function getWaiterId() {
 		const waiterId = await pool.query('SELECT id FROM waiter_names WHERE name = $1', [username]);
 		
@@ -120,6 +126,7 @@ module.exports = function(data) {
 	return {
 		setWaiter,
 		getWaiter,
+		waitersTable,
 		getWaiterId,
 		selectShifts,
 		joinTables,
