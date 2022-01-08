@@ -48,12 +48,6 @@ module.exports = function(data) {
 		return pool.query('DELETE FROM waiter_shifts');
 	}
 
-	async function waitersTable() {
-		const table = await pool.query('SELECT name FROM waiter_names');
-		
-		return table.rows;
-	}
-
 	async function addShifts(myDays, myId) {
 		let theDayId;
 		let dayId;
@@ -81,6 +75,48 @@ module.exports = function(data) {
 		return checkWaiter.rows;
 	}
 
+	async function weekDays() {
+		const allDays = await pool.query('SELECT * FROM week_days');
+
+		return allDays.rows;
+	}
+
+	async function selectedDaysChecked(waiter) {
+		const theDays = await weekDays();
+		const waiterID = await getWaiterId(waiter);
+	
+		for (const i of theDays) {
+			const result = await pool.query('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE waiter_id = $1 and day_id = $2', [waiterID, i.id]);
+			const count = result.rows[0].counter;
+
+			if (count > 0) {
+				i.check = true;
+			} else {
+				i.check = false;
+			}
+		}
+	
+		return theDays;
+	}
+
+	async function addClasslistEachDay() {
+		const eachDay = await weekDays();
+		for (const day of eachDay) {
+			const result = await pool.query('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE day_id = $1', [day.id]);
+			const count = result.rows[0].counter;
+	
+			if (count < 3) {
+				day.color = 'bg-warning';
+			} else if (count == 3) {
+				day.color = 'bg-success';
+			} else {
+				day.color = 'bg-danger';
+			}
+		}
+	
+		return eachDay;
+	}
+
 	return {
 		setWaiter,
 		getWaiter,
@@ -88,8 +124,10 @@ module.exports = function(data) {
 		selectShifts,
 		joinTables,
 		resetData,
-		waitersTable,
 		addShifts,
-		waiterDays
+		waiterDays,
+		weekDays,
+		selectedDaysChecked,
+		addClasslistEachDay
 	};
 };

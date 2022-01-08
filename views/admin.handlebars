@@ -21,16 +21,20 @@
                     </div>
 
                     <div class="card-body">
+
+                        {{#if messages.info}}
+                            <div class="entry">
+                                <h4 class="text-success text-center"> {{messages.info}}</h4>
+                            </div>
+                        {{/if}}
+
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sunday</th>
-                                    <th scope="col">Monday</th>
-                                    <th scope="col">Tuesday</th>
-                                    <th scope="col">Wednesday</th>
-                                    <th scope="col">Thurday</th>
-                                    <th scope="col">Friday</th>
-                                    <th scope="col">Saturday</th>
+                                    {{#each addClasslist}}
+                                        <th scope="col" class="{{color}}" value="{{id}}">{{days}}</th>
+                                    {{/each}}
+
                                 </tr>
                             </thead>
                             
@@ -38,69 +42,50 @@
                                 <tr>
                                     <td>
                                         {{#each Sunday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Monday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Tuesday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Wednesday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Thursday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Friday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Saturday}}
-                                        {{this}} <br> 
+                                            {{this}} <br> 
                                         {{/each}}
                                     </td>
                                 </tr>
-                                {{!-- {{#each orderList}}
-                                    <tr>
-                                        <td>#<span>{{orderId}}</span></td>
-                                        <td>{{status}}</td>
-                                        <td>{{items}}</td>
-                                        <td>R<span>{{amount}}</span></td>
-                                    </tr>
-
-                                {{/each}} --}}
+    
                             </tbody>
                         </table>
 
-                        {{!-- <div class="saveBtn">
-                            <button class="btn myBtn" type="submit" name="button">Save</button>
-                        </div>
-                        <div class="homeBtn">
-                            <button class="btn myBtn" type="submit" name="button">Home</button>
-                        </div> --}}
-
                         <div class="adminBtn my-3 mx-1">
-                            {{!-- <form action="/" method="GET">
-                                <button class="btn myBtn m-1" type="submit" name="button">Home</button> --}}
-                                <a class="btn myBtn m-1" href="/">Home</a>
-                            {{!-- </form> --}}
+                            <a class="btn myBtn m-1" href="/">Home</a>
 
                             <form action="/reset" method="GET">
                                 <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
                             </form>
-                            
                         </div>
                         
                     </div>
@@ -110,5 +95,7 @@
         </section>
 
     </div>
+
+    <script src="/js/waiters_webapp.js"></script>
 </body>
 </html>

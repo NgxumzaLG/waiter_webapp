@@ -32,48 +32,50 @@
                     <div class="card-header mb-2">
                         <h5>Waiter availability</h5>
                     </div>
-                    <div class="card-body flex showcase">
-                        <div class="theDays">
-                            <form action="/shifts" method="POST">
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Sunday"><span class="m-2 dayText"><strong>Sunday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Monday"><span class="m-2 dayText"><strong>Monday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Tuesday"><span class="m-2 dayText"><strong>Tuesday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Wednesday"><span class="m-2 dayText"><strong>Wednesday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Thursday"><span class="m-2 dayText"><strong>Thursday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Friday"><span class="m-2 dayText"><strong>Friday</strong></span>
-                                </div>
-                                <div>
-                                    <input class="m-2" type="checkbox" name="checkDays" value="Saturday"><span class="m-2 dayText"><strong>Saturday</strong></span>
-                                </div>
-                        </div>
-                        <div class="update-btn flex">
-                                <div class="saveBtn">
-                                    <button class="btn myBtn" type="submit" name="button">Save</button>
-                                </div>
-                            </form>
-                            
-                            <div class="homeBtn">
-                                <a class="btn myBtn" href="/">Home</a>
+                    <div class="card-body">
+                        <div class="flex">
+                            <div class="theDays">
+                                <form action="/shifts" method="POST">
+                                    {{#each myDays}}
+                                        <div>
+                                            <input class="m-2" type="checkbox" name="checkDays" value="{{days}}" {{#if check}}checked{{/if}}><span class="m-2 dayText"><strong>{{days}}</strong></span>
+                                        </div>
+                                    {{/each}}
+
                             </div>
-                            
+                            <div class="update-btn flex">
+                                    <div class="saveBtn">
+                                        <button class="btn myBtn" type="submit" name="button">Save</button>
+                                    </div>
+                                </form>
+                                
+                                <div class="homeBtn">
+                                    <a class="btn myBtn" href="/">Home</a>
+                                </div>
+                                
+                            </div>
                         </div>
+
+                        {{#if messages.error}}
+                            <div class="entry">
+                                <h4 class="text-danger text-center mt-3">{{messages.error}}</h4>
+                            </div>
+                        {{/if}}
+
+                        {{#if messages.success}}
+                            <div class="entry">
+                                <h4 class="text-success text-center mt-3">{{messages.success}}</h4>
+                            </div>
+                        {{/if}}
+                        
                     </div>
                 </div>
             </div>
         </section>
 
     </div>
+
+    <script src="/js/waiters_webapp.js"></script>
     
 </body>
 </html>

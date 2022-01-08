@@ -2,7 +2,7 @@ let assert = require('assert');
 const waiterFactory = require('../functions/waiter-functions');
 const {Pool} = require('pg');
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/waiters_availability_test';
+const connectionString = process.env.DATABASE_URL || 'postgresql://lusanda:pg123@localhost:5432/waiters_availability_test';
 
 const pool = new Pool({
 	connectionString,

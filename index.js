@@ -1,6 +1,8 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
+const flash = require('express-flash');
+const session = require('express-session');
 const {Pool} = require('pg');
 
 const waiterFactory = require('./functions/waiter-functions');
@@ -12,7 +14,7 @@ if (process.env.DATABASE_URL && !local){
 	useSSL = true;
 }
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/waiters_availability';
+const connectionString = process.env.DATABASE_URL || 'postgresql://lusanda:pg123@localhost:5432/waiters_availability';
 
 const pool = new Pool({
 	connectionString,
@@ -40,6 +42,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// initialise session middleware - flash-express depends on it
+app.use(session({
+	secret : 'error and success messages',
+	resave: false,
+	saveUninitialized: true
+}));
+
+// initialise the flash middleware
+app.use(flash());
+
 
 app.get('/', function(req, res){
 	res.render('index');
@@ -52,25 +64,38 @@ app.post('/waiter', async function(req, res) {
 
 		res.redirect(`waiters/${waiter}`);
 	} else {
+		req.flash('error', 'Please enter your username first.');
 		res.redirect('/');
 	}
 	
 });
 
-app.get('/waiters/:username', function(req, res) {
+app.get('/waiters/:username', async function(req, res) {
 	let waiterName = instWaiter.getWaiter();
+	let myDays = await instWaiter.selectedDaysChecked(waiterName);
 
-	res.render('waiters', {waiterName});
+	res.render('waiters', {waiterName, myDays});
 });
 
 app.post('/shifts', async function (req, res) {
 	let strWaiter = instWaiter.getWaiter();
-	await instWaiter.selectShifts(req.body.checkDays);
+	let waiterShifts = req.body.checkDays;
+
+	if ( waiterShifts == undefined ) {
+		req.flash('error', 'Please select at least one day.');
+	} else 	{
+		req.flash('success', 'Shifts successfuly updated.');
+		await instWaiter.selectShifts(waiterShifts);
+	}
+
+	
+	
 	res.redirect(`waiters/${strWaiter}`);
 });
 
 app.get('/admin/days', async function(req, res) {
 	const displayTable = await instWaiter.joinTables();
+	const addClasslist = await instWaiter.addClasslistEachDay();
 
 	const Monday = [];
 	const Tuesday = [];
@@ -113,12 +138,14 @@ app.get('/admin/days', async function(req, res) {
 		Wednesday,
 		Thursday,
 		Friday,
-		Saturday
+		Saturday,
+		addClasslist
 	});
 });
 
 app.get('/reset', async function(req, res) {
 	await instWaiter.resetData();
+	req.flash('info', 'Shift schedule has been successfuly reset.');
 
 	res.redirect('/admin/days');
 });
